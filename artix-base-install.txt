@@ -1,0 +1,34 @@
+sudo su
+loadkeys trq
+timedatectl set-ntp true
+
+cfdisk
+mkfs.ext4 /dev/sda1
+mount /dev/sda1 /mnt
+
+basestrap /mnt base linux linux-firmware nano sudo grub openrc dhcpcd-openrc displaymanager-openrc
+fstabgen -U /mnt >> /mnt/etc/fstab
+
+artools-chroot /mnt
+
+ln -sf /usr/share/zoneinfo/Europe/Istanbul /etc/localtime
+hwclock --systohc
+
+nano /etc/locale.gen <en_US.UTF-8 UTF-8>
+locale-gen
+
+nano /etc/locale.conf <LANG=en_US.UTF-8>
+nano /etc/vconsole.conf <KEYMAP=trq>
+
+nano /etc/hostname <arch-pc>
+nano /etc/hosts <127.0.1.1 localhost.localdomain arch-pc>
+
+useradd -m -G wheel <duvarsiz>
+passwd
+passwd <duvarsiz>
+EDITOR=nano visudo <%wheel ALL=(ALL) ALL>
+
+grub-install --target=i386-pc /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+nano /etc/conf.d/xdm <change xdm to sddm or whatever>

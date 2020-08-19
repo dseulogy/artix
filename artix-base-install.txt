@@ -21,7 +21,7 @@ nano /etc/locale.conf <LANG=en_US.UTF-8>
 nano /etc/vconsole.conf <KEYMAP=trq>
 
 nano /etc/hostname <arch-pc>
-nano /etc/hosts <127.0.1.1 localhost.localdomain arch-pc>
+nano /etc/hosts <127.0.1.1 localhost.localdomain artix-pc>
 
 useradd -m -G wheel <duvarsiz>
 passwd

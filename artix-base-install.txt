@@ -32,3 +32,10 @@ grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 nano /etc/conf.d/xdm <change xdm to sddm or whatever>
+
+rc-update add xdm default
+rc-update add dhcpcd default
+
+exit
+umount -a
+reboot
